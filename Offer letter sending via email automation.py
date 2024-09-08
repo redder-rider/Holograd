@@ -12,16 +12,16 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
-excel_file_path = r"C:\Users\daksh\OneDrive\Desktop\Sample.xlsx"
+excel_file_path = r" "
 df = pd.read_excel(excel_file_path)
 
 
-hrm_pdf_path = r"C:\Users\daksh\OneDrive\Desktop\HRM INTERNSHIP OFFER LETTER.pdf"
-marketing_pdf_path = r"C:\Users\daksh\OneDrive\Desktop\MAREKTING INTERNSHIP OFFER LETTER.pdf"
+hrm_pdf_path = r" "
+marketing_pdf_path = r" "
 
 
-from_email = 'Internship@holograd.in'  #Hostinger email
-password = 'Employee@123'  #email password
+from_email = ''  #Hostinger email
+password = ''  #email password
 
 #PDF logic
 def create_custom_pdf(name, email_id, pdf_template_path, output_pdf_path):
@@ -97,7 +97,7 @@ for index, row in df.iterrows():
 
     if domain.lower() == 'hr':
         pdf_path = hrm_pdf_path
-        output_pdf_path = rf"C:\Users\daksh\OneDrive\Desktop\HoloGrad\HRM INTERNSHIP OFFER LETTER.pdf"
+        output_pdf_path = rf" "
         subject = 'Selection for HRM Internship'
         body = '''
 
@@ -128,7 +128,7 @@ HoloGrad
 
     elif domain.lower() == 'marketing':
         pdf_path = marketing_pdf_path
-        output_pdf_path = rf"C:\Users\daksh\OneDrive\Desktop\HoloGrad\MARKETING INTERNSHIP OFFER LETTER.pdf"
+        output_pdf_path = rf" "
         subject = 'Selection for Marketing Internship'
         body = '''
 
