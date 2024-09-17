@@ -27,6 +27,7 @@ password = ''  #email password
 def create_custom_pdf(name, email_id, pdf_template_path, output_pdf_path):
     packet = BytesIO()
     can = canvas.Canvas(packet, pagesize=letter)
+    can.setFont("Helvetica-Bold", 12)
     can.drawString(55, 640, name)  #coordinates to place name
     can.drawString(55, 620, email_id)  #coordinates to place email
     can.save()
