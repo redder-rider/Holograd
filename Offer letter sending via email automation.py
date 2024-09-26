@@ -11,25 +11,28 @@ import time
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
+from datetime import datetime
 
-excel_file_path = r" "
+excel_file_path = r"Sample.xlsx"    #path to the file
 df = pd.read_excel(excel_file_path)
 
 
-hrm_pdf_path = r" "
-marketing_pdf_path = r" "
+hrm_pdf_path = r"HRM INTERNSHIP OFFER LETTER.pdf"    #path to the file
+marketing_pdf_path = r"MAREKTING INTERNSHIP OFFER LETTER.pdf"    #path to the file
 
 
-from_email = ''  #Hostinger email
-password = ''  #email password
+from_email = 'Internship@holograd.in'    #Hostinger email
+password = ''    #email password
 
 #PDF logic
 def create_custom_pdf(name, email_id, pdf_template_path, output_pdf_path):
     packet = BytesIO()
     can = canvas.Canvas(packet, pagesize=letter)
     can.setFont("Helvetica-Bold", 12)
-    can.drawString(55, 640, name)  #coordinates to place name
-    can.drawString(55, 620, email_id)  #coordinates to place email
+    can.drawString(55, 644, name)     #coordinates to place name
+    can.drawString(55, 626, email_id)     #coordinates to place email
+    current_date = datetime.now().strftime("%d %B %Y")
+    can.drawString(426, 644, current_date)     #coordinates to place date
     can.save()
 
     packet.seek(0)
@@ -90,15 +93,17 @@ def save_sent_email(from_email, password, msg):
         
         imap.logout()
 
+email_count = 0
+
 #excel file processing
 for index, row in df.iterrows():
     name = row['Name']
     email_id = row['Email ID']
     domain = row['Domain']
-
+    
     if domain.lower() == 'hr':
         pdf_path = hrm_pdf_path
-        output_pdf_path = rf" "
+        output_pdf_path = rf"HRM INTERNSHIP OFFER LETTER.pdf"    #path to the file
         subject = 'Selection for HRM Internship'
         body = '''
 
@@ -129,7 +134,7 @@ HoloGrad
 
     elif domain.lower() == 'marketing':
         pdf_path = marketing_pdf_path
-        output_pdf_path = rf" "
+        output_pdf_path = rf"MARKETING INTERNSHIP OFFER LETTER.pdf"    #path to the file
         subject = 'Selection for Marketing Internship'
         body = '''
 
@@ -167,4 +172,7 @@ HoloGrad
 
     print(f"PDF for {name} ({domain}) has been updated and sent to {email_id}.")
 
+    email_count += 1
+
 print("Processing complete.")
+print("Total emails sent:",email_count)
